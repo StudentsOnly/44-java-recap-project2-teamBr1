@@ -1,0 +1,50 @@
+@startuml
+class Customer {
+  -String customerID
+  -String name
+  -String address
+  +Customer(String name, String address)
+  +String getCustomerID()
+  +String getName()
+  +String getAddress()
+}
+
+class Delivery {
+  -String deliveryID
+  -String itemName
+  -double itemWeight
+  -String deliveryStatus
+  -Customer customer
+  +Delivery(String itemName, double itemWeight, Customer customer)
+  +String getDeliveryID()
+  +String getItemName()
+  +double getItemWeight()
+  +String getDeliveryStatus()
+  +void markAsDelivered()
+}
+
+class DeliveryService {
+  -List<Customer> customers
+  -List<Delivery> deliveries
+  +Customer registerCustomer(String name, String address)
+  +List<Customer> getAllCustomers()
+  +Delivery placeDelivery(String itemName, double itemWeight, Customer customer)
+  +List<Delivery> getAllDeliveries()
+  +void markDeliveryAsDelivered(String deliveryID)
+}
+
+class Main {
+  +static void main(String[] args)
+  -void displayMenu()
+  -void registerCustomer()
+  -void displayCustomers()
+  -void placeDelivery()
+  -void displayDeliveries()
+  -void markDeliveryAsDelivered()
+}
+
+Customer "1" --> "0..*" Delivery : "places"
+DeliveryService "1" *--> "0..*" Customer : "manages"
+DeliveryService "1" *--> "0..*" Delivery : "manages"
+Main --> DeliveryService : "uses"
+@enduml
