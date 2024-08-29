@@ -26,10 +26,12 @@ class Delivery {
 class DeliveryService {
   -List<Customer> customers
   -List<Delivery> deliveries
+  +Customer getCustomer(Integer id)
   +Customer registerCustomer(String name, String address)
-  +List<Customer> getAllCustomers()
+  +List<Customer> getCustomers()
+  +void displayRegisteredCustomers()
   +Delivery placeDelivery(String itemName, double itemWeight, Customer customer)
-  +List<Delivery> getAllDeliveries()
+  +List<Delivery> getDeliveries()
   +void markDeliveryAsDelivered(String deliveryID)
 }
 
