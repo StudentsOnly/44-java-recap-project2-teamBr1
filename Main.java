@@ -9,16 +9,22 @@ public class Main {
 
                 boolean flag = true;
                 while (flag) {
-                        displayMenu();
-                        String input = scanner.nextLine().trim();
-                        switch (input.substring(0,1)) {
-                                case "1" -> registerCustomer();
-                                case "2" -> displayCustomers();
-                                case "3" -> placeDelivery();
-                                case "4" -> displayDeliveries();
-                                case "5" -> markDeliveryAsDelivered();
-                                case "6" -> flag = false;
-                                default -> {}
+                        try {
+                                displayMenu();
+                                String input = scanner.nextLine().trim();
+                                System.out.println();
+                                switch (input.substring(0,1)) {
+                                        case "1" -> registerCustomer();
+                                        case "2" -> displayCustomers();
+                                        case "3" -> placeDelivery();
+                                        case "4" -> displayDeliveries();
+                                        case "5" -> markDeliveryAsDelivered();
+                                        case "6" -> flag = false;
+                                        default -> {}
+                                }
+                                System.out.println();
+                        } catch (Exception e) {
+                                System.out.println("Exception caught in user-interactive loop: " + e.getMessage());
                         }
                 }
                 scanner.close();
@@ -55,7 +61,11 @@ public class Main {
                 }
         }
         private static void displayCustomers() {
-                deliveryService.displayCustomers();
+                try {
+                        deliveryService.displayRegisteredCustomers();
+                } catch (Exception e) {
+                        System.out.println("Exception in displayCustomers: " + e.getMessage());
+                }
         }
         private static void placeDelivery() {
 
@@ -63,11 +73,15 @@ public class Main {
                         System.out.print("Please enter customer ID: ");
                         int customerID = Integer.parseInt(scanner.nextLine().trim());
                         Customer customer = deliveryService.getCustomer(customerID);
+                        if (customer == null) {
+                                System.out.println("Customer not found.");
+                                return;
+                        }
 
-                        System.out.print("Please enter customer name: ");
+                        System.out.print("Please enter item name: ");
                         String itemName = scanner.nextLine().trim();
 
-                        System.out.println("Please enter item weight in kilograms: ");
+                        System.out.print("Please enter item weight in kilograms: ");
                         double itemWeight = Double.parseDouble(scanner.nextLine().trim());
 
                         deliveryService.placeDelivery(itemName, itemWeight, customer);
@@ -81,9 +95,23 @@ public class Main {
         }
         private static void displayDeliveries() {
 
+                try {
+                        deliveryService.displayDeliveries();
+                } catch (Exception e) {
+                        System.out.println("Exception in displayDeliveries: " + e.getMessage());
+                }
         }
         private static void markDeliveryAsDelivered() {
 
+                        displayDeliveries();
+
+                try {
+                        System.out.println("Please enter the delivery ID to mark it as delivered: ");
+                        String deliveryID = scanner.nextLine().trim();
+                        deliveryService.markDeliveryAsDelivered(deliveryID);
+                } catch (Exception e) {
+                        System.out.println("Exception in markDeliveryAsDelivered: " + e.getMessage());
+                }
         }
 
 }

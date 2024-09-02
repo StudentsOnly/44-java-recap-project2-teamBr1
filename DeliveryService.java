@@ -50,9 +50,11 @@ public class DeliveryService {
 
     public void displayRegisteredCustomers(){
         System.out.println("Registered customers:");
+        System.out.println("--------------------------");
         if(!customers.isEmpty()){
             for(var c: customers){
                 c.displayCustomerInfo();
+                System.out.println();
             }
         }
     }
@@ -68,7 +70,7 @@ public class DeliveryService {
 
     public Delivery placeDelivery(String itemName, double itemWeight, Customer customer){
         Delivery delivery = new Delivery(itemName, itemWeight, customer);
-        if(getDelivery(delivery.getDeliveryId()) != null){
+        if(getDelivery(delivery.getDeliveryId()) == null){
             deliveries.add(delivery);
             return delivery;
         }
@@ -86,9 +88,11 @@ public class DeliveryService {
 
     public void displayDeliveries(){
         System.out.println("Deliveries:");
+        System.out.println("--------------------------");
         if(!deliveries.isEmpty()){
             for(var d: deliveries){
                 d.displayDeliveryInfo();
+                System.out.println();
             }
         }
     }
