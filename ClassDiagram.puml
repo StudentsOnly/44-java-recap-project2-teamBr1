@@ -30,9 +30,12 @@ class DeliveryService {
   +Customer registerCustomer(String name, String address)
   +List<Customer> getCustomers()
   +void displayRegisteredCustomers()
+  +Delivery getDelivery(int id)
   +Delivery placeDelivery(String itemName, double itemWeight, Customer customer)
   +List<Delivery> getDeliveries()
   +void markDeliveryAsDelivered(String deliveryID)
+  +void displayDeliveries()
+
 }
 
 class Main {
